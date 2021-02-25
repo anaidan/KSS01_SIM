@@ -30,25 +30,11 @@ class hub:
         self.rod_joint_pos = x, y
         return x, y
 
-    def upd_rod_joint(self):
+    def update(self, _flo_hinge):
         x, y = self.calc_rod_joint_pos()
         self.canvas.coords(self.rj, x - 1, y - 1, x + 1, y + 1)
         self.ang = (self.ang + self.RPU) % (2 * math.pi)
+        self.canvas.coords(self.rod, x, y, _flo_hinge.axel_x, _flo_hinge.axel_y)
 
-    def calc_rod_intersect(self, _hub):
-        x1, y1 = self.calc_rod_joint_pos()
-        r1 = self.rod_len
-        x2, y2 = _hub.calc_rod_joint_pos()
-        r2 = _hub.rod_len
-        R = math.sqrt((x1-x2)**2+(y1-y2)**2)
 
-        xa = .5*(x1+x2) + (r1**2-r2**2)/(2*R**2) * (x2-x1) + .5*math.sqrt(2*(r1**2+r2**2)/(R**2) - (r1**2-r2**2)**2/(R**4) - 1)*(y2-y1)
-        xb = .5*(x1+x2) + (r1**2-r2**2)/(2*R**2) * (x2-x1) - .5*math.sqrt(2*(r1**2+r2**2)/(R**2) - (r1**2-r2**2)**2/(R**4) - 1)*(y2-y1)
 
-        ya = .5*(y1+y2) + (r1**2-r2**2)/(2*R**2) * (y2-y1) + .5*math.sqrt(2*(r1**2+r2**2)/(R**2) - (r1**2-r2**2)**2/(R**4) - 1)*(x1-x2)
-        yb = .5*(y1+y2) + (r1**2-r2**2)/(2*R**2) * (y2-y1) - .5*math.sqrt(2*(r1**2+r2**2)/(R**2) - (r1**2-r2**2)**2/(R**4) - 1)*(x1-x2)
-
-        return xa, ya
-
-    def draw_rod(self, x1, y1, x2, y2):
-        self.canvas.coords(self.rod, x1, y1, x2, y2)
