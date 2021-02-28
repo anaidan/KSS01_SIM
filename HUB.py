@@ -3,9 +3,9 @@ import math
 UPD_TIME = 0.01
 
 class hub:
-    def __init__(self, axel_x, axel_y, radius, rpm, rod_len, ang, canvas):
-        self.axel_x = axel_x
-        self.axel_y = axel_y
+    def __init__(self, axle_x, axle_y, radius, rpm, rod_len, ang, canvas):
+        self.axle_x = axle_x
+        self.axle_y = axle_y
         self.radius = radius  # in pixels
         self.rpm = rpm
         self.rod_len = rod_len  # in pixels
@@ -16,8 +16,8 @@ class hub:
 
     def create_shapes(self):
         x, y = self.calc_rod_joint_pos()
-        self.canvas.create_oval(self.axel_x - self.radius, self.axel_y - self.radius,
-                           self.axel_x + self.radius, self.axel_y + self.radius,
+        self.canvas.create_oval(self.axle_x - self.radius, self.axle_y - self.radius,
+                           self.axle_x + self.radius, self.axle_y + self.radius,
                            outline="gray", fill="white", width=1)
         self.rj = self.canvas.create_oval(x - 1, y - 1, x + 1, y + 1,
                                      outline="black", fill="black", width=1)
@@ -25,8 +25,8 @@ class hub:
 
 
     def calc_rod_joint_pos(self):
-        x = self.axel_x + self.radius * math.cos(self.ang)
-        y = self.axel_y - self.radius * math.sin(self.ang)
+        x = self.axle_x + self.radius * math.cos(self.ang)
+        y = self.axle_y - self.radius * math.sin(self.ang)
         self.rod_joint_pos = x, y
         return x, y
 
@@ -34,7 +34,7 @@ class hub:
         x, y = self.calc_rod_joint_pos()
         self.canvas.coords(self.rj, x - 1, y - 1, x + 1, y + 1)
         self.ang = (self.ang + self.RPU) % (2 * math.pi)
-        self.canvas.coords(self.rod, x, y, _flo_hinge.axel_x, _flo_hinge.axel_y)
+        self.canvas.coords(self.rod, x, y, _flo_hinge.axle_x, _flo_hinge.axle_y)
 
 
 
